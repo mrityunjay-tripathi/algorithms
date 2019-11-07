@@ -1,6 +1,13 @@
 #include<stdio.h>
 #define MAX 50
 
+void swap(int *a, int *b)
+{
+	int t;
+	t = *a;
+	*a = *b;
+	*b = t;
+}
 
 void max_heapify(int heap[], int n, int i)
 {
@@ -15,9 +22,7 @@ void max_heapify(int heap[], int n, int i)
 	
 	if(largest!=i)
 	{
-		t = heap[i];
-		heap[i] = heap[largest];
-		heap[largest] = t;
+		swap(&heap[i], &heap[largest]);
 		
 		max_heapify(heap, n, largest);
 	}
@@ -45,9 +50,9 @@ int *heap_sort(int heap[], int n, int is_heapified)
 	{
 		sorted_arr[n-1-i] = heap[0];
 		//printf("%d ", heap[0]);
-		t = heap[0];
-		heap[0] = heap[i];
-		heap[i] = t;
+
+		swap(&heap[0], &heap[i]);
+
 		
 		max_heapify(heap, i, 0);
 	}
