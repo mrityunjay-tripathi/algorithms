@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#define MAX 100
 
 // create a node structure having 'data' and 'pointer to next node' columns.
 struct node
@@ -24,7 +24,7 @@ struct hash
 {
 	struct node *next; // next is a pointer to next element of chain.
 } 
-hash_table[100]; // create a hash table having (say) 100 rows.
+hash_table[MAX]; // create a hash table having (say) 100 rows.
 
 
 // function to insert values at some row in the hash table.
@@ -58,11 +58,12 @@ void display(struct hash h)
 }
 
 // search function to find elements
-int search(struct hash h[], int value, int n)
+int search(struct hash h[], int value, int n) // h[] means complete hash table
 {
 	// first find the key of value using hash function.
 	int k = key(value, n);
-	
+	if(k>MAX-1)
+		return 0;
 	
 	// search iteratively kth row of hash table.
 	struct node *temp = h[k].next;
@@ -100,7 +101,10 @@ int main()
 	{
 		scanf("%d", &t);
 		k = key(t, 12);
-		hash_table[k] = insert(hash_table[k], t);
+		if(k<MAX)
+			hash_table[k] = insert(hash_table[k], t);
+		else
+			printf("Hash Table Overflow: Value dropped!");
 	}
 	
 	printf("Hash Table Content : \n");
