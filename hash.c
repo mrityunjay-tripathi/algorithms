@@ -63,7 +63,7 @@ int search(struct hash h[], int value, int n) // h[] means complete hash table
 	// first find the key of value using hash function.
 	int k = key(value, n);
 	if(k>MAX-1)
-		return 0;
+		return -1;
 	
 	// search iteratively kth row of hash table.
 	struct node *temp = h[k].next;
@@ -77,7 +77,7 @@ int search(struct hash h[], int value, int n) // h[] means complete hash table
 	// so check on it also.
 	if(temp->data == value)
 		return k;
-	return 0;
+	return -1;
 }
 
 // The function to generate key values.
@@ -124,7 +124,7 @@ int main()
 	printf("\nEnter the element to be searched : ");
 	scanf("%d", &x);
 	int search_key = search(hash_table, x, 12);
-	if(search_key)
+	if(search_key!=-1)
 		printf("Successful : Element %d found with key %d.\n", x, search_key);
 	else
 		printf("Error: Couldn't find %d\n", x);
